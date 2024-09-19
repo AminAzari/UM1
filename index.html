@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+// Password for protected section
+$correct_password = 'yourpassword';
+
+// Check if the form was submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_POST['section_password'] === $correct_password) {
+        $_SESSION['section_access'] = true;
+    } else {
+        $error = "Incorrect password. Please try again.";
+    }
+}
+
+// Check if user has access to the protected section
+$has_access = isset($_SESSION['section_access']) && $_SESSION['section_access'] === true;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,15 +85,6 @@
             background-color: #0073e6;
             color: white;
         }
-        .important-links a {
-            display: block;
-            color: #0073e6;
-            margin-bottom: 10px;
-            text-decoration: none;
-        }
-        .important-links a:hover {
-            text-decoration: underline;
-        }
         .policies, .grading {
             background-color: #f0f8ff;
             padding: 20px;
@@ -88,31 +98,12 @@
             color: white;
             margin-top: 40px;
         }
-        /* Calendar */
-        .calendar {
-            margin: 20px 0;
+        /* Password Protected Section */
+        .protected-section {
             background-color: #f9f9f9;
             padding: 20px;
             border: 1px solid #ddd;
-        }
-        .calendar h2 {
-            background-color: #0073e6;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
-        .calendar-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .calendar-table th, .calendar-table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-        }
-        .calendar-table th {
-            background-color: #0073e6;
-            color: white;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -126,8 +117,8 @@
         <a href="#schedule">Course Schedule</a>
         <a href="#grading">Grading Criteria</a>
         <a href="#policies">Course Policies</a>
-        <a href="#calendar">Calendar</a>
         <a href="#important-links">Important Links</a>
+        <a href="#protected-section">Protected Section</a>
     </div>
 
     <!-- Main Content -->
@@ -178,7 +169,7 @@
             </table>
         </section>
 
-        <!-- Schedule Section -->
+        <!-- Course Schedule Section -->
         <section id="schedule">
             <h2>Course Schedule</h2>
             <table class="table">
@@ -206,50 +197,8 @@
                         <td>Chapters 4-6</td>
                         <td>Assignment 2 Due</td>
                     </tr>
-                    <!-- Add more weeks as necessary -->
                 </tbody>
             </table>
-        </section>
-
-        <!-- Calendar Section -->
-        <section id="calendar">
-            <div class="calendar">
-                <h2>Course Calendar</h2>
-                <table class="calendar-table">
-                    <thead>
-                        <tr>
-                            <th>Sunday</th>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                            <th>Saturday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11</td>
-                            <td>12</td>
-                            <td>13</td>
-                        </tr>
-                        <!-- Continue for the full month -->
-                    </tbody>
-                </table>
-            </div>
         </section>
 
         <!-- Grading Section -->
@@ -291,4 +240,35 @@
         <section id="important-links">
             <h2>Important Links</h2>
             <a href="#">Course Homepage</a>
-            <a
+            <a href="#">Resource Page</a>
+        </section>
+
+        <!-- Password-Protected Section -->
+        <section id="protected-section">
+            <h2>Protected Section</h2>
+            <?php if ($has_access): ?>
+                <div class="protected-section">
+                    <h3>Confidential Content</h3>
+                    <p>This content is only visible after entering the correct password.</p>
+                    <p>You have access to this confidential section.</p>
+                    <a href="logout.php">Logout</a>
+                </div>
+            <?php else: ?>
+                <form method="post">
+                    <label for="section_password">Enter Password to Access Protected Section:</label>
+                    <input type="password" id="section_password" name="section_password" required>
+                    <input type="submit" value="Submit">
+                </form>
+                <?php if (isset($error)): ?>
+                    <p style="color:red;"><?php echo $error; ?></p>
+                <?php endif; ?>
+            <?php endif; ?>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            &copy; 2024 Course Syllabus. All Rights Reserved.
+        </footer>
+    </div>
+</body>
+</html>
