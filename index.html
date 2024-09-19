@@ -8,8 +8,37 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+        }
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding-top: 20px;
+            color: white;
+        }
+        .sidebar a {
+            padding: 15px;
+            text-align: left;
+            display: block;
+            color: white;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #34495e;
+        }
+        /* Main Content */
+        .content {
+            margin-left: 250px;
             padding: 20px;
             background-color: #f4f4f9;
+            width: calc(100% - 250px);
         }
         header {
             background-color: #0073e6;
@@ -18,13 +47,6 @@
             text-align: center;
             font-size: 24px;
             font-weight: bold;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         h1, h2 {
             color: #333;
@@ -43,9 +65,6 @@
         .table th {
             background-color: #0073e6;
             color: white;
-        }
-        .schedule-table td {
-            background-color: #f9f9f9;
         }
         .important-links a {
             display: block;
@@ -69,16 +88,54 @@
             color: white;
             margin-top: 40px;
         }
+        /* Calendar */
+        .calendar {
+            margin: 20px 0;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+        .calendar h2 {
+            background-color: #0073e6;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .calendar-table th, .calendar-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        .calendar-table th {
+            background-color: #0073e6;
+            color: white;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        Course Syllabus: Course Title
-    </header>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#introduction">Introduction</a>
+        <a href="#objectives">Learning Objectives</a>
+        <a href="#materials">Required Materials</a>
+        <a href="#schedule">Course Schedule</a>
+        <a href="#grading">Grading Criteria</a>
+        <a href="#policies">Course Policies</a>
+        <a href="#calendar">Calendar</a>
+        <a href="#important-links">Important Links</a>
+    </div>
 
-    <div class="container">
-        
+    <!-- Main Content -->
+    <div class="content">
+        <header>
+            Course Syllabus: Course Title
+        </header>
+
         <!-- Introduction Section -->
         <section id="introduction">
             <h1>Introduction</h1>
@@ -124,7 +181,7 @@
         <!-- Schedule Section -->
         <section id="schedule">
             <h2>Course Schedule</h2>
-            <table class="table schedule-table">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Week</th>
@@ -154,8 +211,49 @@
             </table>
         </section>
 
+        <!-- Calendar Section -->
+        <section id="calendar">
+            <div class="calendar">
+                <h2>Course Calendar</h2>
+                <table class="calendar-table">
+                    <thead>
+                        <tr>
+                            <th>Sunday</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>11</td>
+                            <td>12</td>
+                            <td>13</td>
+                        </tr>
+                        <!-- Continue for the full month -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- Grading Section -->
-        <section class="grading" id="grading">
+        <section id="grading">
             <h2>Grading Criteria</h2>
             <table class="table">
                 <thead>
@@ -182,7 +280,7 @@
         </section>
 
         <!-- Policies Section -->
-        <section class="policies" id="policies">
+        <section id="policies">
             <h2>Course Policies</h2>
             <p><strong>Attendance:</strong> Attendance is required for all lectures. If you are unable to attend, please notify the instructor in advance.</p>
             <p><strong>Late Assignments:</strong> Late assignments will not be accepted without prior arrangement.</p>
@@ -190,18 +288,7 @@
         </section>
 
         <!-- Important Links Section -->
-        <section class="important-links">
+        <section id="important-links">
             <h2>Important Links</h2>
             <a href="#">Course Homepage</a>
-            <a href="#">Assignment Submission Portal</a>
-            <a href="#">External Reading Materials</a>
-        </section>
-        
-    </div>
-
-    <footer>
-        &copy; 2024 University Name | Contact: info@university.edu
-    </footer>
-
-</body>
-</html>
+            <a
