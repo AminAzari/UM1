@@ -2,12 +2,12 @@
 session_start();
 
 // Password for protected section
-$correct_password = 'yourpassword';
+$correct_password = 'yourpassword'; // Replace with your password
 
 // Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($_POST['section_password'] === $correct_password) {
-        $_SESSION['section_access'] = true;
+        $_SESSION['section_access'] = true; // Grant access if password is correct
     } else {
         $error = "Incorrect password. Please try again.";
     }
@@ -85,12 +85,6 @@ $has_access = isset($_SESSION['section_access']) && $_SESSION['section_access'] 
             background-color: #0073e6;
             color: white;
         }
-        .policies, .grading {
-            background-color: #f0f8ff;
-            padding: 20px;
-            border: 1px solid #0073e6;
-            margin-bottom: 20px;
-        }
         footer {
             text-align: center;
             padding: 20px;
@@ -98,12 +92,14 @@ $has_access = isset($_SESSION['section_access']) && $_SESSION['section_access'] 
             color: white;
             margin-top: 40px;
         }
-        /* Password Protected Section */
         .protected-section {
             background-color: #f9f9f9;
             padding: 20px;
             border: 1px solid #ddd;
             margin-top: 20px;
+        }
+        .error-message {
+            color: red;
         }
     </style>
 </head>
@@ -260,7 +256,7 @@ $has_access = isset($_SESSION['section_access']) && $_SESSION['section_access'] 
                     <input type="submit" value="Submit">
                 </form>
                 <?php if (isset($error)): ?>
-                    <p style="color:red;"><?php echo $error; ?></p>
+                    <p class="error-message"><?php echo $error; ?></p>
                 <?php endif; ?>
             <?php endif; ?>
         </section>
